@@ -570,13 +570,13 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       </div>
       <div class="share-buttons">
-        <button class="share-button twitter" data-activity="${name}" data-description="${details.description}" data-schedule="${formattedSchedule}" title="Share on Twitter">
+        <button class="share-button twitter" data-share-type="twitter" data-activity="${name}" data-description="${details.description}" data-schedule="${formattedSchedule}" title="Share on Twitter">
           𝕏
         </button>
-        <button class="share-button facebook" data-activity="${name}" data-description="${details.description}" data-schedule="${formattedSchedule}" title="Share on Facebook">
+        <button class="share-button facebook" data-share-type="facebook" data-activity="${name}" data-description="${details.description}" data-schedule="${formattedSchedule}" title="Share on Facebook">
           f
         </button>
-        <button class="share-button email" data-activity="${name}" data-description="${details.description}" data-schedule="${formattedSchedule}" title="Share via Email">
+        <button class="share-button email" data-share-type="email" data-activity="${name}" data-description="${details.description}" data-schedule="${formattedSchedule}" title="Share via Email">
           ✉
         </button>
       </div>
@@ -605,11 +605,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const activityName = event.currentTarget.dataset.activity;
         const description = event.currentTarget.dataset.description;
         const schedule = event.currentTarget.dataset.schedule;
-        const shareType = event.currentTarget.classList.contains("twitter")
-          ? "twitter"
-          : event.currentTarget.classList.contains("facebook")
-          ? "facebook"
-          : "email";
+        const shareType = event.currentTarget.dataset.shareType;
         handleShare(shareType, activityName, description, schedule);
       });
     });
@@ -643,7 +639,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const mailtoUrl = `mailto:?subject=${encodeURIComponent(
           subject
         )}&body=${encodeURIComponent(body)}`;
-        window.location.href = mailtoUrl;
+        window.open(mailtoUrl);
         break;
     }
   }
