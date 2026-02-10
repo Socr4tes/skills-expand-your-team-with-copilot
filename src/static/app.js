@@ -570,13 +570,13 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       </div>
       <div class="share-buttons">
-        <button class="share-button twitter" data-share-type="twitter" data-activity="${name}" data-description="${details.description}" data-schedule="${formattedSchedule}" title="Share on Twitter">
+        <button class="share-button twitter" data-share-type="twitter" data-activity="${name}" data-description="${details.description}" data-schedule="${formattedSchedule}" title="Share on Twitter" aria-label="Share on Twitter">
           𝕏
         </button>
-        <button class="share-button facebook" data-share-type="facebook" data-activity="${name}" data-description="${details.description}" data-schedule="${formattedSchedule}" title="Share on Facebook">
+        <button class="share-button facebook" data-share-type="facebook" data-activity="${name}" data-description="${details.description}" data-schedule="${formattedSchedule}" title="Share on Facebook" aria-label="Share on Facebook">
           f
         </button>
-        <button class="share-button email" data-share-type="email" data-activity="${name}" data-description="${details.description}" data-schedule="${formattedSchedule}" title="Share via Email">
+        <button class="share-button email" data-share-type="email" data-activity="${name}" data-description="${details.description}" data-schedule="${formattedSchedule}" title="Share via Email" aria-label="Share via Email">
           ✉
         </button>
       </div>
