@@ -569,6 +569,17 @@ document.addEventListener("DOMContentLoaded", () => {
         `
         }
       </div>
+      <div class="share-buttons">
+        <button class="share-button twitter" data-activity="${name}" data-description="${details.description}" data-schedule="${formattedSchedule}" title="Share on Twitter">
+          𝕏
+        </button>
+        <button class="share-button facebook" data-activity="${name}" data-description="${details.description}" data-schedule="${formattedSchedule}" title="Share on Facebook">
+          f
+        </button>
+        <button class="share-button email" data-activity="${name}" data-description="${details.description}" data-schedule="${formattedSchedule}" title="Share via Email">
+          ✉
+        </button>
+      </div>
     `;
 
     // Add click handlers for delete buttons
@@ -587,7 +598,54 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
 
+    // Add click handlers for share buttons
+    const shareButtons = activityCard.querySelectorAll(".share-button");
+    shareButtons.forEach((button) => {
+      button.addEventListener("click", (event) => {
+        const activityName = event.currentTarget.dataset.activity;
+        const description = event.currentTarget.dataset.description;
+        const schedule = event.currentTarget.dataset.schedule;
+        const shareType = event.currentTarget.classList.contains("twitter")
+          ? "twitter"
+          : event.currentTarget.classList.contains("facebook")
+          ? "facebook"
+          : "email";
+        handleShare(shareType, activityName, description, schedule);
+      });
+    });
+
     activitiesList.appendChild(activityCard);
+  }
+
+  // Function to handle social sharing
+  function handleShare(type, activityName, description, schedule) {
+    const url = window.location.href;
+    const text = `Check out this activity: ${activityName} - ${description}. Schedule: ${schedule}`;
+
+    switch (type) {
+      case "twitter":
+        const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+          text
+        )}&url=${encodeURIComponent(url)}`;
+        window.open(twitterUrl, "_blank", "width=550,height=420");
+        break;
+
+      case "facebook":
+        const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+          url
+        )}&quote=${encodeURIComponent(text)}`;
+        window.open(facebookUrl, "_blank", "width=550,height=420");
+        break;
+
+      case "email":
+        const subject = `Check out this activity: ${activityName}`;
+        const body = `${text}\n\nLearn more at: ${url}`;
+        const mailtoUrl = `mailto:?subject=${encodeURIComponent(
+          subject
+        )}&body=${encodeURIComponent(body)}`;
+        window.location.href = mailtoUrl;
+        break;
+    }
   }
 
   // Event listeners for search and filter
